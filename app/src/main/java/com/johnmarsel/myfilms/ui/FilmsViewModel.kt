@@ -7,7 +7,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilmsViewModel @Inject constructor(
-    private val repository: FilmsRepository,
+    repository: FilmsRepository
 ) : ViewModel() {
-    // TODO: Implement the ViewModel
+
+    val films = repository.getFilms()
 }

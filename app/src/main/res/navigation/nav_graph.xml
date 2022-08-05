@@ -9,5 +9,5 @@
         android:id="@+id/mainFragment"
         android:name="com.johnmarsel.myfilms.ui.FilmsFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_films" />
 </navigation>
