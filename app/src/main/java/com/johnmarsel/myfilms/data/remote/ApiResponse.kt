@@ -1,4 +1,4 @@
-package com.johnmarsel.myfilms.api
+package com.johnmarsel.myfilms.data.remote
 
 import com.johnmarsel.myfilms.data.model.Film
 

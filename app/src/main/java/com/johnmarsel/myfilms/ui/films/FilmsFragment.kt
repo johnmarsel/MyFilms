@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.johnmarsel.myfilms.data.Resource
 import com.johnmarsel.myfilms.databinding.FragmentFilmsBinding
 import com.johnmarsel.myfilms.ui.dialog.SelectionDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,10 +43,16 @@ class FilmsFragment : Fragment() {
     private fun subscribeUi() {
         viewModel.films.observe(
             viewLifecycleOwner
-        ) { films ->
-            val sortedFilms = films.sortedBy { it.releaseYear }
-            adapter = FilmsAdapter(sortedFilms, clickFilmAction)
-            binding.recyclerViewFilms.adapter = adapter
+        ) { result ->
+            binding.apply {
+                progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
+                textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
+            }
+            val sortedFilms = result.data?.sortedBy { it.releaseYear }
+            sortedFilms?.let {
+                adapter = FilmsAdapter(sortedFilms, clickFilmAction)
+                binding.recyclerViewFilms.adapter = adapter
+            }
         }
     }
 }

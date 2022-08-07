@@ -1,4 +1,4 @@
-package com.johnmarsel.myfilms.api
+package com.johnmarsel.myfilms.data.remote
 
 import retrofit2.http.GET
 

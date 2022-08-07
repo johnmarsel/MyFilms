@@ -1,7 +1,12 @@
 package com.johnmarsel.myfilms.data.model
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "films")
 data class Film (
-    val title: String,
+    @PrimaryKey val title: String,
     val directorName: String,
     val releaseYear: Int,
     val actors: List<Actor>

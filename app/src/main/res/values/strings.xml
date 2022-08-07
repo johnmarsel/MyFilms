@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyFilms</string>
     <string name="initials">%s %s.%s.</string>
+    <string name="error">NetworkError: Turn on Internet and restart the app</string>
 </resources>
