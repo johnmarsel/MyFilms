@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyFilms</string>
+    <string name="initials">%s %s.%s.</string>
 </resources>

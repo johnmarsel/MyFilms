@@ -1,4 +1,4 @@
-package com.johnmarsel.myfilms.ui
+package com.johnmarsel.myfilms.ui.films
 
 import androidx.lifecycle.ViewModel
 import com.johnmarsel.myfilms.data.FilmsRepository

@@ -1,4 +1,4 @@
-package com.johnmarsel.myfilms.ui
+package com.johnmarsel.myfilms.ui.films
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.johnmarsel.myfilms.databinding.FragmentFilmsBinding
+import com.johnmarsel.myfilms.ui.dialog.SelectionDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -14,25 +15,36 @@ class FilmsFragment : Fragment() {
 
     private val viewModel: FilmsViewModel by viewModels()
     private lateinit var binding: FragmentFilmsBinding
-    private var adapter = FilmsAdapter()
+    private var adapter = FilmsAdapter(emptyList(), null)
+
+    private val clickFilmAction: ClickFilmAction = { title ->
+        SelectionDialogFragment.let {
+            it.newInstance(title).show(parentFragmentManager, it.FILM_DIALOG)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFilmsBinding.inflate(inflater, container, false)
-
         binding.recyclerViewFilms.adapter = adapter
-        return binding.root
 
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscribeUi()
+    }
+
+    private fun subscribeUi() {
         viewModel.films.observe(
             viewLifecycleOwner
         ) { films ->
-            adapter.submitList(films)
+            val sortedFilms = films.sortedBy { it.releaseYear }
+            adapter = FilmsAdapter(sortedFilms, clickFilmAction)
+            binding.recyclerViewFilms.adapter = adapter
         }
     }
 }

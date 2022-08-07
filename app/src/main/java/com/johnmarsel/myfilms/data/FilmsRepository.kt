@@ -3,6 +3,7 @@ package com.johnmarsel.myfilms.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.johnmarsel.myfilms.api.FilmsApi
+import com.johnmarsel.myfilms.data.model.Film
 import javax.inject.Inject
 import javax.inject.Singleton
 
