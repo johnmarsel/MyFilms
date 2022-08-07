@@ -17,10 +17,7 @@ fun getInitialsFromName(view: TextView, fullName: String?) {
 @BindingAdapter("namesOfActors")
 fun getNamesOfActors(view: TextView, actors: List<Actor>?) {
     if (!actors.isNullOrEmpty()) {
-        val names = mutableListOf<String>()
-        actors.toSet().forEach {
-            names.add(it.actorName)
-        }
+        val names = actors.toSet().map { it.actorName }
         view.text = names.joinToString(separator = ", ")
     }
 }

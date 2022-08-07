@@ -74,5 +74,4 @@
             tools:text="actors" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

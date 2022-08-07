@@ -1,6 +1,5 @@
 package com.johnmarsel.myfilms.ui.films
 
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.*
 import com.johnmarsel.myfilms.data.FilmsRepository
 import com.johnmarsel.myfilms.data.Resource
@@ -15,7 +14,7 @@ class FilmsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _films = MutableLiveData<Resource<List<Film>>>()
-    val films: LiveData<Resource<List<Film>>> = _films
+    var films: LiveData<Resource<List<Film>>> = _films
 
     init {
         getFilms()

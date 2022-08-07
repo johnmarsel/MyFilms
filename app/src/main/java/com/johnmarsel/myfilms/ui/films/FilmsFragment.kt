@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.johnmarsel.myfilms.data.Resource
 import com.johnmarsel.myfilms.databinding.FragmentFilmsBinding
-import com.johnmarsel.myfilms.ui.dialog.SelectionDialogFragment
+import com.johnmarsel.myfilms.ui.dialog.FilmDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +20,7 @@ class FilmsFragment : Fragment() {
     private var adapter = FilmsAdapter(emptyList(), null)
 
     private val clickFilmAction: ClickFilmAction = { title ->
-        SelectionDialogFragment.let {
+        FilmDialogFragment.let {
             it.newInstance(title).show(parentFragmentManager, it.FILM_DIALOG)
         }
     }

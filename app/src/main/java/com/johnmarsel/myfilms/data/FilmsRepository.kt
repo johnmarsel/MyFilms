@@ -1,16 +1,11 @@
 package com.johnmarsel.myfilms.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.johnmarsel.myfilms.data.local.LocalDataSource
-import com.johnmarsel.myfilms.data.remote.FilmsApi
 import com.johnmarsel.myfilms.data.model.Film
 import com.johnmarsel.myfilms.data.remote.RemoteDataSource
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
 class FilmsRepository @Inject constructor(
     private val remoteRepository: RemoteDataSource,
     private val localRepository: LocalDataSource
@@ -18,12 +13,12 @@ class FilmsRepository @Inject constructor(
 
     fun getFilms(): Flow<Resource<List<Film>>>
     = flow {
-        val data = localRepository.getFilms().first()
+        val cachedFilms = localRepository.getFilms().first()
 
-        val shouldFetch = data.isEmpty()
+        val shouldFetch = cachedFilms.isEmpty()
 
         val flow = if (shouldFetch) {
-            emit(Resource.Loading(data))
+            emit(Resource.Loading(cachedFilms))
 
             try {
                 val films = remoteRepository.fetchFilms()
