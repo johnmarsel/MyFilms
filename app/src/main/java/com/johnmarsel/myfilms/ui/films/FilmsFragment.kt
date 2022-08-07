@@ -30,6 +30,7 @@ class FilmsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFilmsBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         binding.recyclerViewFilms.adapter = adapter
 
         return binding.root
@@ -48,10 +49,12 @@ class FilmsFragment : Fragment() {
                 progressLoading.isVisible = result is Resource.Loading && result.data.isNullOrEmpty()
                 textViewError.isVisible = result is Resource.Error && result.data.isNullOrEmpty()
             }
-            val sortedFilms = result.data?.sortedBy { it.releaseYear }
-            sortedFilms?.let {
-                adapter = FilmsAdapter(sortedFilms, clickFilmAction)
-                binding.recyclerViewFilms.adapter = adapter
+            if (result is Resource.Success) {
+                val sortedFilms = result.data?.sortedBy { it.releaseYear }
+                sortedFilms?.let {
+                    adapter = FilmsAdapter(sortedFilms, clickFilmAction)
+                    binding.recyclerViewFilms.adapter = adapter
+                }
             }
         }
     }

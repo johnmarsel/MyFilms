@@ -2,6 +2,7 @@ package com.johnmarsel.myfilms.binding
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.johnmarsel.myfilms.R
 import com.johnmarsel.myfilms.data.model.Actor
 
@@ -21,6 +22,14 @@ fun getNamesOfActors(view: TextView, actors: List<Actor>?) {
             names.add(it.actorName)
         }
         view.text = names.joinToString(separator = ", ")
+    }
+}
+
+@BindingAdapter("onRefresh")
+fun SwipeRefreshLayout.setOnRefreshListener( onRefresh: () -> Unit) {
+    setOnRefreshListener {
+        onRefresh()
+        isRefreshing = false
     }
 }
 
